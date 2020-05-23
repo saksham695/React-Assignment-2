@@ -1,0 +1,23 @@
+.box-wrapper {
+  background-color: blueviolet;
+  height: 100vw;
+  width: 100vw;
+}
+.box-heading {
+  text-align: center;
+  margin-top: 0;
+  padding-top: 40px;
+}
+
+.input-box {
+  margin-top: 3%;
+  text-align: center;
+  margin-left: 15%;
+}
+.login-result-header {
+  align-self: center;
+  color: red;
+  position: absolute;
+  margin-left: 20%;
+  margin-top: -1%;
+}

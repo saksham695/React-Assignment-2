@@ -1,0 +1,10 @@
+.input-box-wrapper {
+  width: "40%";
+  height: 20%;
+  display: block;
+}
+
+.input-box {
+  width: 60%;
+  height: 30%;
+}
