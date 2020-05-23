@@ -23,24 +23,17 @@ export default class ItemList extends Component {
   render() {
     const { item } = this.props;
     const { position } = this.state;
-
     return (
-      <div style={{ display: "flex", height: "50%", width: "100%" }}>
-        <div
-          style={{
-            width: "22%",
-            height: "30%",
-            marginLeft: "4.5%",
-          }}
-        >
+      <div className="list-wrapper">
+        <div className="list-container">
           {item.items.map((itr, i) => {
             const HEADING_COLOR = i === position ? "pink" : "lightblue";
             return (
               <ShowListItem
-                listItems={itr}
-                key={i}
-                onClick={this.handleChange(i)}
                 backgroundColor={HEADING_COLOR}
+                key={i}
+                listItems={itr}
+                onClick={this.handleChange(i)}
               />
             );
           })}

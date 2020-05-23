@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { data } from "../data/data";
 import CategoryHeadings from "./CategoryHeadings";
 import ItemList from "./ItemList";
+import "./Category.css";
 export default class CategoryComponent extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +16,7 @@ export default class CategoryComponent extends Component {
     });
   };
 
-  handleChange = (index) => {
+  openCategory = (index) => {
     return () => {
       const { position } = this.state;
       console.log(position, index);
@@ -30,35 +31,27 @@ export default class CategoryComponent extends Component {
   render() {
     const { categories } = data;
     const { position } = this.state;
-    const disabledButton = position === -1 ? true : false;
-    const BUTTON_COLOR = disabledButton ? "grey" : "red";
+    const DISABLED_BUTTON = position === -1 ? true : false;
+    const BUTTON_COLOR = DISABLED_BUTTON ? "grey" : "red";
 
     return (
-      <div
-        style={{ width: "100vw", height: "100vw", backgroundColor: "purple" }}
-      >
+      <div className="category-container">
         {categories.map(({ name }, index) => {
           const HEADING_COLOR = index === position ? "greenyellow" : "green";
           return (
             <CategoryHeadings
               name={name}
               key={index}
-              onClick={this.handleChange(index)}
+              onClick={this.openCategory(index)}
               backgroundColor={HEADING_COLOR}
             />
           );
         })}
         <button
           onClick={this.refreshAll}
-          style={{
-            width: "15%",
-            position: "absolute",
-            right: 20,
-            top: 10,
-            height: "5%",
-            backgroundColor: BUTTON_COLOR,
-          }}
-          disabled={disabledButton}
+          style={{ backgroundColor: BUTTON_COLOR, right: 20, top: 10 }}
+          className="refresh-button"
+          disabled={DISABLED_BUTTON}
         >
           REFRESH
         </button>

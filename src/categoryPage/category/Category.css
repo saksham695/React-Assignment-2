@@ -5,3 +5,37 @@
   margin: 5%;
   padding: 4%;
 }
+.heading-text {
+  padding: 20%;
+}
+.refresh-button {
+  width: 15%;
+  position: absolute;
+  height: 5%;
+}
+.category-container {
+  height: 100vw;
+  width: 100vw;
+  background-color: rgb(68, 51, 68);
+}
+
+.list-wrapper {
+  display: flex;
+  height: 50%;
+  width: 100%;
+}
+.list-container {
+  width: 22%;
+  height: 30%;
+  margin-left: 4.5%;
+}
+
+.display-list-box {
+  height: 30%;
+  padding-bottom: 2px;
+  margin-top: 10%;
+}
+.list-text {
+  text-align: center;
+  padding: 5%;
+}

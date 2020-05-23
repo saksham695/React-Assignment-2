@@ -8,7 +8,7 @@ export default function CategoryHeadings(props) {
       onClick={onClick}
       style={{ backgroundColor: backgroundColor }}
     >
-      <h4 style={{ padding: "10%" }}>{name}</h4>
+      <h2 className="heading-text">{name}</h2>
     </div>
   );
 }

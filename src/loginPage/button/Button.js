@@ -5,7 +5,7 @@ export default function ButtonComponent(props) {
 
   const BUTTON_COLOR = buttonStatus ? "grey" : "green";
   return (
-    <div className="button-wrapper">
+    <div>
       <button
         onClick={onButtonClick}
         type="submit"

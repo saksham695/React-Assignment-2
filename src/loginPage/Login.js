@@ -23,11 +23,7 @@ export default class Login extends Component {
       this.setState({
         display: true,
       });
-    }
-    if (
-      loginDetails.emailID === KEYS.EMAIL_ID &&
-      loginDetails.password === KEYS.PASSWORD
-    ) {
+    } else {
       this.props.changePage();
     }
   };

@@ -6,13 +6,11 @@ export default function ShowListItem(props) {
     <div
       style={{
         backgroundColor: backgroundColor,
-        height: "30%",
-        paddingBottom: "2px",
-        marginTop: "10%",
       }}
+      className="display-list-box"
       onClick={onClick}
     >
-      <h4 style={{ textAlign: "center", padding: "5%" }}>{listItems.name}</h4>
+      <h4 className="list-text">{listItems.name}</h4>
     </div>
   );
 }
