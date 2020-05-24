@@ -10,40 +10,40 @@ export default class CategoryComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      position: -1,
+      headingNumberDisplay: -1,
     };
   }
 
   // will refresh the page and will unselect all the selected items .
   refreshAll = () => {
     this.setState({
-      position: -1,
+      headingNumberDisplay: -1,
     });
   };
 
   // method to open list of selected category
   openCategory = (index) => {
     return () => {
-      const { position } = this.state;
-      if (position === index) {
-        this.setState({ position: -1 });
+      const { headingNumberDisplay } = this.state;
+      if (headingNumberDisplay === index) {
+        this.setState({ headingNumberDisplay: -1 });
       } else {
-        this.setState({ position: index });
+        this.setState({ headingNumberDisplay: index });
       }
     };
   };
 
   render() {
-    console.log(this.props);
     const { categoriesData } = this.props;
-    const { position } = this.state;
-    const DISABLED_BUTTON = position === -1 ? true : false;
+    const { headingNumberDisplay } = this.state;
+    const DISABLED_BUTTON = headingNumberDisplay === -1 ? true : false;
     const BUTTON_COLOR = DISABLED_BUTTON ? "grey" : "red";
 
     return (
       <div className="category-container">
         {categoriesData.map(({ name }, index) => {
-          const HEADING_COLOR = index === position ? "greenyellow" : "green";
+          const HEADING_COLOR =
+            index === headingNumberDisplay ? "greenyellow" : "green";
           return (
             <CategoryHeadings
               backgroundColor={HEADING_COLOR}
@@ -62,7 +62,9 @@ export default class CategoryComponent extends Component {
           REFRESH
         </button>
 
-        {position > -1 ? <ItemList item={categoriesData[position]} /> : null}
+        {headingNumberDisplay > -1 ? (
+          <ItemList item={categoriesData[headingNumberDisplay]} />
+        ) : null}
       </div>
     );
   }

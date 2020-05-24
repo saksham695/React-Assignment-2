@@ -1,7 +1,10 @@
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 
 import ButtonComponent from "./button/Button";
 import InputComponent from "./inputField/Input";
+
+import Identity from "lodash/identity";
 
 import { KEYS } from "./keys/keys";
 
@@ -74,3 +77,11 @@ export default class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  changePage: PropTypes.func,
+};
+
+Login.defaultProps = {
+  changePage: Identity,
+};

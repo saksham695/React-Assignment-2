@@ -4,7 +4,7 @@ import CategoryComponent from "./categoryPage/category/CategoryComponent";
 import Login from "./loginPage/Login";
 
 import { data } from "./categoryPage/data/data";
-//TODO 1:add prop types and default props
+
 //TODO 2:use loadash where needed
 
 export default class App extends Component {
@@ -31,10 +31,7 @@ export default class App extends Component {
         {displayPage ? (
           <Login changePage={this.changePage} />
         ) : (
-          <CategoryComponent
-            changePage={this.changePage}
-            categoriesData={categories}
-          />
+          <CategoryComponent categoriesData={categories} />
         )}
       </div>
     );
