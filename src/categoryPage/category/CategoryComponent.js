@@ -1,9 +1,8 @@
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 
 import CategoryHeadings from "./CategoryHeadings";
 import ItemList from "./ItemList";
-
-import { data } from "../data/data";
 
 import "./Category.css";
 
@@ -22,10 +21,10 @@ export default class CategoryComponent extends Component {
     });
   };
 
+  // method to open list of selected category
   openCategory = (index) => {
     return () => {
       const { position } = this.state;
-      console.log(position, index);
       if (position === index) {
         this.setState({ position: -1 });
       } else {
@@ -35,14 +34,15 @@ export default class CategoryComponent extends Component {
   };
 
   render() {
-    const { categories } = data;
+    console.log(this.props);
+    const { categoriesData } = this.props;
     const { position } = this.state;
     const DISABLED_BUTTON = position === -1 ? true : false;
     const BUTTON_COLOR = DISABLED_BUTTON ? "grey" : "red";
 
     return (
       <div className="category-container">
-        {categories.map(({ name }, index) => {
+        {categoriesData.map(({ name }, index) => {
           const HEADING_COLOR = index === position ? "greenyellow" : "green";
           return (
             <CategoryHeadings
@@ -62,8 +62,38 @@ export default class CategoryComponent extends Component {
           REFRESH
         </button>
 
-        {position > -1 ? <ItemList item={categories[position]} /> : null}
+        {position > -1 ? <ItemList item={categoriesData[position]} /> : null}
       </div>
     );
   }
 }
+
+CategoryComponent.propTypes = {
+  categoriesData: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      items: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.string,
+          name: PropTypes.string,
+          description: PropTypes.string,
+        })
+      ),
+    })
+  ),
+};
+
+CategoryComponent.defaultProps = {
+  categoriesData: [
+    {
+      name: "Food",
+      items: [
+        {
+          id: "d1",
+          name: "Wheat",
+          description: "Used to make Roti",
+        },
+      ],
+    },
+  ],
+};

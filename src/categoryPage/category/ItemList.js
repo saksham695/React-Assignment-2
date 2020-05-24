@@ -27,15 +27,15 @@ export default class ItemList extends Component {
     return (
       <div className="list-wrapper">
         <div className="list-container">
-          {item.items.map((itr, i) => {
+          {item.items.map((itemList, index) => {
             const HEADING_COLOR =
-              i === categoryNumberDisplay ? "pink" : "lightblue";
+              index === categoryNumberDisplay ? "pink" : "lightblue";
             return (
               <ShowListItem
                 backgroundColor={HEADING_COLOR}
-                key={i}
-                listItems={itr}
-                onClick={this.handleChange(i)}
+                key={itemList.id}
+                listItems={itemList}
+                onClick={this.handleChange(index)}
               />
             );
           })}
