@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+
 import "./Input.css";
+
 export default class InputComponent extends Component {
   constructor(props) {
     super(props);
@@ -7,6 +9,7 @@ export default class InputComponent extends Component {
       text: "",
     };
   }
+
   handleInputControl = (inputType) => {
     return (event) => {
       const inputFieldValue = event.target.value;
@@ -23,10 +26,10 @@ export default class InputComponent extends Component {
         <label className="input-box-wrapper">
           <input
             className="input-box"
+            onChange={this.handleInputControl(inputType)}
             placeholder={inputType}
             type={inputType}
             value={this.state.text}
-            onChange={this.handleInputControl(inputType)}
           />
         </label>
       </>

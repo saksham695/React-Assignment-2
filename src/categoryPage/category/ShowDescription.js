@@ -5,11 +5,11 @@ export default function ShowDescription(props) {
   return (
     <div
       style={{
-        height: "38%",
-        width: "53%",
         backgroundColor: "yellow",
+        height: "38%",
         marginLeft: "10%",
         marginTop: "2%",
+        width: "53%",
       }}
     >
       <h2 style={{ padding: "10%" }}>{props.description}</h2>

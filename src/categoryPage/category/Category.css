@@ -1,22 +1,29 @@
+.category-container {
+  background-color: rgb(68, 51, 68);
+  height: 100vw;
+  width: 100vw;
+}
+
 .category-heading {
-  height: 10%;
-  width: 13%;
   display: inline-block;
+  height: 10%;
   margin: 5%;
   padding: 4%;
+  width: 13%;
+}
+
+.display-list-box {
+  height: 30%;
+  margin-top: 10%;
+  padding-bottom: 2px;
 }
 .heading-text {
   padding: 20%;
 }
-.refresh-button {
-  width: 15%;
-  position: absolute;
-  height: 5%;
-}
-.category-container {
-  height: 100vw;
-  width: 100vw;
-  background-color: rgb(68, 51, 68);
+.list-container {
+  height: 30%;
+  margin-left: 4.5%;
+  width: 22%;
 }
 
 .list-wrapper {
@@ -24,18 +31,13 @@
   height: 50%;
   width: 100%;
 }
-.list-container {
-  width: 22%;
-  height: 30%;
-  margin-left: 4.5%;
-}
 
-.display-list-box {
-  height: 30%;
-  padding-bottom: 2px;
-  margin-top: 10%;
-}
 .list-text {
-  text-align: center;
   padding: 5%;
+  text-align: center;
+}
+.refresh-button {
+  height: 5%;
+  position: absolute;
+  width: 15%;
 }

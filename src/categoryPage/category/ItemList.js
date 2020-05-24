@@ -1,33 +1,35 @@
 import React, { Component } from "react";
-import ShowListItem from "./ShowListItem";
+
 import ShowDescription from "./ShowDescription";
+import ShowListItem from "./ShowListItem";
 
 export default class ItemList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      position: -1,
+      categoryNumberDisplay: -1,
     };
   }
   handleChange = (index) => {
     return () => {
-      const { position } = this.state;
-      if (position === index) {
-        this.setState({ position: -1 });
+      const { categoryNumberDisplay } = this.state;
+      if (categoryNumberDisplay === index) {
+        this.setState({ categoryNumberDisplay: -1 });
       } else {
-        this.setState({ position: index });
+        this.setState({ categoryNumberDisplay: index });
       }
     };
   };
 
   render() {
     const { item } = this.props;
-    const { position } = this.state;
+    const { categoryNumberDisplay } = this.state;
     return (
       <div className="list-wrapper">
         <div className="list-container">
           {item.items.map((itr, i) => {
-            const HEADING_COLOR = i === position ? "pink" : "lightblue";
+            const HEADING_COLOR =
+              i === categoryNumberDisplay ? "pink" : "lightblue";
             return (
               <ShowListItem
                 backgroundColor={HEADING_COLOR}
@@ -38,8 +40,10 @@ export default class ItemList extends Component {
             );
           })}
         </div>
-        {position !== -1 ? (
-          <ShowDescription description={item.items[position].description} />
+        {categoryNumberDisplay !== -1 ? (
+          <ShowDescription
+            description={item.items[categoryNumberDisplay].description}
+          />
         ) : null}
       </div>
     );

@@ -1,8 +1,12 @@
 import React, { Component } from "react";
-import { data } from "../data/data";
+
 import CategoryHeadings from "./CategoryHeadings";
 import ItemList from "./ItemList";
+
+import { data } from "../data/data";
+
 import "./Category.css";
+
 export default class CategoryComponent extends Component {
   constructor(props) {
     super(props);
@@ -10,6 +14,8 @@ export default class CategoryComponent extends Component {
       position: -1,
     };
   }
+
+  // will refresh the page and will unselect all the selected items .
   refreshAll = () => {
     this.setState({
       position: -1,
@@ -40,18 +46,18 @@ export default class CategoryComponent extends Component {
           const HEADING_COLOR = index === position ? "greenyellow" : "green";
           return (
             <CategoryHeadings
-              name={name}
-              key={index}
-              onClick={this.openCategory(index)}
               backgroundColor={HEADING_COLOR}
+              key={index}
+              name={name}
+              onClick={this.openCategory(index)}
             />
           );
         })}
         <button
-          onClick={this.refreshAll}
-          style={{ backgroundColor: BUTTON_COLOR, right: 20, top: 10 }}
           className="refresh-button"
           disabled={DISABLED_BUTTON}
+          onClick={this.refreshAll}
+          style={{ backgroundColor: BUTTON_COLOR, right: 20, top: 10 }}
         >
           REFRESH
         </button>
