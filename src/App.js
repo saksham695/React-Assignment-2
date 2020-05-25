@@ -15,8 +15,9 @@ export default class App extends Component {
 
   // navigate to category page on  successful login
   changePage = () => {
+    const { displayPage } = this.state;
     this.setState({
-      displayPage: !this.state.displayPage,
+      displayPage: !displayPage,
     });
   };
 
