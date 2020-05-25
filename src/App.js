@@ -5,8 +5,6 @@ import Login from "./loginPage/Login";
 
 import { data } from "./categoryPage/data/data";
 
-//TODO 2:use loadash where needed
-
 export default class App extends Component {
   constructor(props) {
     super(props);
