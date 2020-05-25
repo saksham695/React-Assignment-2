@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function ShowDescription(props) {
-  console.log(props);
+  const { description } = props;
   return (
     <div
       style={{
@@ -12,7 +12,8 @@ export default function ShowDescription(props) {
         width: "53%",
       }}
     >
-      <h2 style={{ padding: "10%" }}>{props.description}</h2>
+      <h1>DESCRIPTION</h1>
+      <h2 style={{ padding: "10%" }}>{description}</h2>
     </div>
   );
 }
