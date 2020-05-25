@@ -12,11 +12,19 @@
   width: 13%;
 }
 
+.description-wrapper {
+  background-color: yellow;
+  height: 38%;
+  margin-left: 10%;
+  margin-top: 2%;
+  width: 53%;
+}
 .display-list-box {
   height: 30%;
   margin-top: 10%;
   padding-bottom: 2px;
 }
+
 .heading-text {
   padding: 20%;
 }

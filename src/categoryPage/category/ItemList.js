@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import ShowDescription from "./ShowDescription";
 import ShowListItem from "./ShowListItem";
 
+import "./Category.css";
+
 export default class ItemList extends Component {
   constructor(props) {
     super(props);

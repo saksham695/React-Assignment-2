@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./Category.css";
+
 export default function ShowListItem(props) {
   const { listItems, onClick, backgroundColor } = props;
   return (
