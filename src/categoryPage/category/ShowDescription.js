@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import "./Category.css";
@@ -11,3 +12,11 @@ export default function ShowDescription(props) {
     </div>
   );
 }
+
+ShowDescription.prototypes = {
+  description: PropTypes.string,
+};
+
+ShowDescription.defaultProps = {
+  description: "Used to make Roti",
+};

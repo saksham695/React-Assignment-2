@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 
 import ShowDescription from "./ShowDescription";
@@ -29,14 +30,14 @@ export default class ItemList extends Component {
     return (
       <div className="list-wrapper">
         <div className="list-container">
-          {item.items.map((itemList, index) => {
+          {item.map((itemList, index) => {
             const HEADING_COLOR =
               index === categoryNumberDisplay ? "pink" : "lightblue";
             return (
               <ShowListItem
                 backgroundColor={HEADING_COLOR}
                 key={itemList.id}
-                listItems={itemList}
+                listItems={itemList.name}
                 onClick={this.handleChange(index)}
               />
             );
@@ -44,10 +45,30 @@ export default class ItemList extends Component {
         </div>
         {categoryNumberDisplay !== -1 ? (
           <ShowDescription
-            description={item.items[categoryNumberDisplay].description}
+            description={item[categoryNumberDisplay].description}
           />
         ) : null}
       </div>
     );
   }
 }
+
+ItemList.propTypes = {
+  item: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      description: PropTypes.string,
+    })
+  ),
+};
+
+ItemList.defaultProps = {
+  item: [
+    {
+      id: "jnq",
+      name: "Wheat",
+      description: "Used to make Roti",
+    },
+  ],
+};

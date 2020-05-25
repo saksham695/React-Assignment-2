@@ -63,7 +63,7 @@ export default class CategoryComponent extends Component {
         </button>
 
         {headingNumberDisplay > -1 ? (
-          <ItemList item={categoriesData[headingNumberDisplay]} />
+          <ItemList item={categoriesData[headingNumberDisplay].items} />
         ) : null}
       </div>
     );
