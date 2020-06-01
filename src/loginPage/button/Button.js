@@ -1,8 +1,9 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 
 import "./Button.css";
 
-export default function ButtonComponent(props) {
+function ButtonComponent(props) {
   const { buttonStatus, onButtonClick, title } = props;
 
   const BUTTON_COLOR = buttonStatus ? "grey" : "green";
@@ -20,3 +21,5 @@ export default function ButtonComponent(props) {
     </div>
   );
 }
+
+export default withRouter(ButtonComponent);

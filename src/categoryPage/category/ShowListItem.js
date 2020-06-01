@@ -6,13 +6,12 @@ import Identity from "lodash/identity";
 import "./Category.css";
 
 export default function ShowListItem(props) {
-  const { listItems, onClick, backgroundColor } = props;
+  const { listItems } = props;
   return (
     <div
       className="display-list-box"
-      onClick={onClick}
       style={{
-        backgroundColor: backgroundColor,
+        backgroundColor: "pink",
       }}
     >
       <h4 className="list-text">{listItems}</h4>

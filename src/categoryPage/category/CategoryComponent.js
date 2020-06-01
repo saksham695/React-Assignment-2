@@ -1,70 +1,64 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
+import { withRouter, BrowserRouter, Route, NavLink } from "react-router-dom";
 
 import CategoryHeadings from "./CategoryHeadings";
 import ItemList from "./ItemList";
 
 import "./Category.css";
 
-export default class CategoryComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      headingNumberDisplay: -1,
-    };
-  }
-
+class CategoryComponent extends Component {
   // will refresh the page and will unselect all the selected items .
   refreshAll = () => {
-    this.setState({
-      headingNumberDisplay: -1,
-    });
+    const { history } = this.props;
+    history.push("/category");
   };
 
   // method to open list of selected category
-  openCategory = (index) => {
+  openCategory = (name) => {
     return () => {
-      const { headingNumberDisplay } = this.state;
-      if (headingNumberDisplay === index) {
-        this.setState({ headingNumberDisplay: -1 });
-      } else {
-        this.setState({ headingNumberDisplay: index });
-      }
+      const { history } = this.props;
+      history.push(`/category/` + name);
     };
   };
 
   render() {
     const { categoriesData } = this.props;
-    const { headingNumberDisplay } = this.state;
-    const DISABLED_BUTTON = headingNumberDisplay === -1 ? true : false;
+    const DISABLED_BUTTON = false;
     const BUTTON_COLOR = DISABLED_BUTTON ? "grey" : "red";
 
     return (
       <div className="category-container">
         {categoriesData.map(({ name }, index) => {
-          const HEADING_COLOR =
-            index === headingNumberDisplay ? "greenyellow" : "green";
           return (
             <CategoryHeadings
-              backgroundColor={HEADING_COLOR}
+              backgroundColor={"green"}
               key={index}
               name={name}
-              onClick={this.openCategory(index)}
+              onClick={this.openCategory(name)}
             />
           );
         })}
         <button
           className="refresh-button"
-          disabled={DISABLED_BUTTON}
           onClick={this.refreshAll}
           style={{ backgroundColor: BUTTON_COLOR, right: 20, top: 10 }}
         >
           REFRESH
         </button>
-
-        {headingNumberDisplay > -1 ? (
-          <ItemList item={categoriesData[headingNumberDisplay].items} />
-        ) : null}
+        {categoriesData.map(({ name }, index) => {
+          return (
+            <BrowserRouter>
+              <Route path={"/category/" + name}>
+                <ItemList
+                  item={categoriesData[index].items}
+                  categoryName={categoriesData[index].name}
+                  key={index}
+                />
+              </Route>
+            </BrowserRouter>
+          );
+        })}
       </div>
     );
   }
@@ -99,3 +93,5 @@ CategoryComponent.defaultProps = {
     },
   ],
 };
+
+export default withRouter(CategoryComponent);

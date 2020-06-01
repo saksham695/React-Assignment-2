@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
+import { BrowserRouter, Route } from "react-router-dom";
 
 import ShowDescription from "./ShowDescription";
 import ShowListItem from "./ShowListItem";
@@ -7,47 +8,25 @@ import ShowListItem from "./ShowListItem";
 import "./Category.css";
 
 export default class ItemList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      categoryNumberDisplay: -1,
-    };
-  }
-  handleChange = (index) => {
-    return () => {
-      const { categoryNumberDisplay } = this.state;
-      if (categoryNumberDisplay === index) {
-        this.setState({ categoryNumberDisplay: -1 });
-      } else {
-        this.setState({ categoryNumberDisplay: index });
-      }
-    };
-  };
-
   render() {
-    const { item } = this.props;
-    const { categoryNumberDisplay } = this.state;
+    const { item, categoryName } = this.props;
+    console.log(item);
     return (
       <div className="list-wrapper">
         <div className="list-container">
-          {item.map((itemList, index) => {
-            const HEADING_COLOR =
-              index === categoryNumberDisplay ? "pink" : "lightblue";
-            return (
-              <ShowListItem
-                backgroundColor={HEADING_COLOR}
-                key={itemList.id}
-                listItems={itemList.name}
-                onClick={this.handleChange(index)}
-              />
-            );
+          {item.map(({ name }, index) => {
+            return <ShowListItem listItems={name} />;
           })}
         </div>
-        {categoryNumberDisplay !== -1 ? (
-          <ShowDescription
-            description={item[categoryNumberDisplay].description}
-          />
-        ) : null}
+        {item.map(({ name }, index) => {
+          return (
+            <BrowserRouter>
+              <Route path={"/category/" + categoryName + "/" + name}>
+                <ShowDescription description={item.description} />
+              </Route>
+            </BrowserRouter>
+          );
+        })}
       </div>
     );
   }

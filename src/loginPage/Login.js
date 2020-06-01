@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 
 import ButtonComponent from "./button/Button";
 import InputComponent from "./inputField/Input";
@@ -10,7 +11,7 @@ import { KEYS } from "./keys/keys";
 
 import "./Login.css";
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,6 +23,7 @@ export default class Login extends Component {
 
   buttonClicked = () => {
     const { loginDetails } = this.state;
+    const { history } = this.props;
     if (
       loginDetails.emailID !== KEYS.EMAIL_ID ||
       loginDetails.password !== KEYS.PASSWORD
@@ -30,7 +32,7 @@ export default class Login extends Component {
         display: true,
       });
     } else {
-      this.props.changePage();
+      history.push("/category");
     }
   };
 
@@ -85,3 +87,4 @@ Login.propTypes = {
 Login.defaultProps = {
   changePage: Identity,
 };
+export default withRouter(Login);
