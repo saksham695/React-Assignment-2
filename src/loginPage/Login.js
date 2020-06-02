@@ -1,54 +1,19 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import ButtonComponent from "./button/Button";
 import InputComponent from "./inputField/Input";
+import { loginPage, inputControl } from "../store/actions/actions";
 
 import Identity from "lodash/identity";
 
-import { KEYS } from "./keys/keys";
-
 import "./Login.css";
 
-export default class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      buttonStatus: true,
-      display: false,
-      loginDetails: { emailID: "", password: "" },
-    };
-  }
-
-  buttonClicked = () => {
-    const { loginDetails } = this.state;
-    if (
-      loginDetails.emailID !== KEYS.EMAIL_ID ||
-      loginDetails.password !== KEYS.PASSWORD
-    ) {
-      this.setState({
-        display: true,
-      });
-    } else {
-      this.props.changePage();
-    }
-  };
-
-  handleChange = (value, inputType) => {
-    const { loginDetails } = { ...this.state };
-    loginDetails[inputType] = value;
-    const { emailID, password } = loginDetails;
-    const newButtonStatus =
-      emailID.length > 0 && password.length > 0 ? false : true;
-
-    this.setState({
-      buttonStatus: newButtonStatus,
-      loginDetails: loginDetails,
-    });
-  };
-
+class Login extends Component {
   render() {
-    const { loginDetails, buttonStatus, display } = this.state;
+    const { pageDetails, loginButton } = this.props;
+    const { loginDetails, buttonStatus, display } = pageDetails;
     const credentialsKeys = Object.keys(loginDetails);
     return (
       <div className="box-wrapper">
@@ -58,7 +23,7 @@ export default class Login extends Component {
           {credentialsKeys.map((type, index) => {
             return (
               <InputComponent
-                handleChange={this.handleChange}
+                handleChange={this.props.inputFieldControls}
                 inputType={type}
                 key={index}
               />
@@ -66,7 +31,7 @@ export default class Login extends Component {
           })}
           <ButtonComponent
             buttonStatus={buttonStatus}
-            onButtonClick={this.buttonClicked}
+            onButtonClick={loginButton}
             title={"LOGIN"}
           />
           {display ? (
@@ -85,3 +50,19 @@ Login.propTypes = {
 Login.defaultProps = {
   changePage: Identity,
 };
+const mapStateToProps = (state) => {
+  return {
+    pageDetails: state.loginReducer,
+  };
+};
+const mapDispatchToState = (dispatch) => {
+  return {
+    inputFieldControls: (inputValue, inputType) => {
+      dispatch(inputControl(inputValue, inputType));
+    },
+    loginButton: () => {
+      dispatch(loginPage());
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToState)(Login);

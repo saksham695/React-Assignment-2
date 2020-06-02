@@ -1,69 +1,46 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import CategoryHeadings from "./CategoryHeadings";
 import ItemList from "./ItemList";
+import { refreshAll, openCategory } from "../../store/actions/actions";
 
 import "./Category.css";
 
-export default class CategoryComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      headingNumberDisplay: -1,
-    };
-  }
-
-  // will refresh the page and will unselect all the selected items .
-  refreshAll = () => {
-    this.setState({
-      headingNumberDisplay: -1,
-    });
-  };
-
+class CategoryComponent extends Component {
   // method to open list of selected category
-  openCategory = (index) => {
-    return () => {
-      const { headingNumberDisplay } = this.state;
-      if (headingNumberDisplay === index) {
-        this.setState({ headingNumberDisplay: -1 });
-      } else {
-        this.setState({ headingNumberDisplay: index });
-      }
-    };
-  };
 
   render() {
-    const { categoriesData } = this.props;
-    const { headingNumberDisplay } = this.state;
-    const DISABLED_BUTTON = headingNumberDisplay === -1 ? true : false;
+    const { categoriesData, pageCounter } = this.props;
+    const DISABLED_BUTTON = pageCounter === -1 ? true : false;
     const BUTTON_COLOR = DISABLED_BUTTON ? "grey" : "red";
 
     return (
       <div className="category-container">
         {categoriesData.map(({ name }, index) => {
-          const HEADING_COLOR =
-            index === headingNumberDisplay ? "greenyellow" : "green";
+          const HEADING_COLOR = index === pageCounter ? "greenyellow" : "green";
           return (
             <CategoryHeadings
               backgroundColor={HEADING_COLOR}
               key={index}
               name={name}
-              onClick={this.openCategory(index)}
+              onClick={this.props.categoryOpener}
+              index={index}
             />
           );
         })}
         <button
           className="refresh-button"
           disabled={DISABLED_BUTTON}
-          onClick={this.refreshAll}
+          onClick={this.props.refreshPage}
           style={{ backgroundColor: BUTTON_COLOR, right: 20, top: 10 }}
         >
           REFRESH
         </button>
 
-        {headingNumberDisplay > -1 ? (
-          <ItemList item={categoriesData[headingNumberDisplay].items} />
+        {pageCounter > -1 ? (
+          <ItemList item={categoriesData[pageCounter].items} />
         ) : null}
       </div>
     );
@@ -99,3 +76,22 @@ CategoryComponent.defaultProps = {
     },
   ],
 };
+
+const mapStateToProps = (state) => {
+  console.log(state.categoryReducer.categoryState);
+  return {
+    pageCounter: state.categoryReducer.categoryState,
+  };
+};
+const mapDispatchToState = (dispatch) => {
+  return {
+    refreshPage: () => {
+      dispatch(refreshAll());
+    },
+
+    categoryOpener: (index) => {
+      dispatch(openCategory(index));
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToState)(CategoryComponent);

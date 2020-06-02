@@ -6,11 +6,16 @@ import Identity from "lodash/identity";
 import "./Category.css";
 
 export default function CategoryHeadings(props) {
-  const { name, onClick, backgroundColor } = props;
+  const { name, backgroundColor } = props;
+
+  function onClickCaller() {
+    const { onClick, index } = props;
+    return onClick(index);
+  }
   return (
     <div
       className="category-heading"
-      onClick={onClick}
+      onClick={onClickCaller}
       style={{ backgroundColor: backgroundColor }}
     >
       <h2 className="heading-text">{name}</h2>

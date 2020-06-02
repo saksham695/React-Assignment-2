@@ -1,28 +1,14 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import CategoryComponent from "./categoryPage/category/CategoryComponent";
 import Login from "./loginPage/Login";
 
 import { data } from "./categoryPage/data/data";
 
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      displayPage: 1,
-    };
-  }
-
-  // navigate to category page on  successful login
-  changePage = () => {
-    const { displayPage } = this.state;
-    this.setState({
-      displayPage: !displayPage,
-    });
-  };
-
+class App extends Component {
   render() {
-    const { displayPage } = this.state;
+    const { displayPage } = this.props.displayPage;
     const { categories } = data;
 
     return (
@@ -36,3 +22,9 @@ export default class App extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    displayPage: state.loginReducer,
+  };
+};
+export default connect(mapStateToProps)(App);

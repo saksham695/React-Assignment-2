@@ -11,7 +11,7 @@ export default function ButtonComponent(props) {
       <button
         className="button-box"
         disabled={buttonStatus}
-        onClick={onButtonClick}
+        onClick={() => onButtonClick()}
         style={{ backgroundColor: BUTTON_COLOR }}
         type="submit"
       >

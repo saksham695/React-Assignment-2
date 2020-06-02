@@ -1,52 +1,35 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
+import { openList } from "../../store/actions/actions";
 import ShowDescription from "./ShowDescription";
 import ShowListItem from "./ShowListItem";
 
 import "./Category.css";
 
-export default class ItemList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      categoryNumberDisplay: -1,
-    };
-  }
-  handleChange = (index) => {
-    return () => {
-      const { categoryNumberDisplay } = this.state;
-      if (categoryNumberDisplay === index) {
-        this.setState({ categoryNumberDisplay: -1 });
-      } else {
-        this.setState({ categoryNumberDisplay: index });
-      }
-    };
-  };
-
+class ItemList extends Component {
   render() {
-    const { item } = this.props;
-    const { categoryNumberDisplay } = this.state;
+    const { item, pageCounter } = this.props;
+
     return (
       <div className="list-wrapper">
         <div className="list-container">
           {item.map((itemList, index) => {
-            const HEADING_COLOR =
-              index === categoryNumberDisplay ? "pink" : "lightblue";
+            const HEADING_COLOR = index === pageCounter ? "pink" : "lightblue";
             return (
               <ShowListItem
                 backgroundColor={HEADING_COLOR}
                 key={itemList.id}
+                index={index}
                 listItems={itemList.name}
-                onClick={this.handleChange(index)}
+                onClick={this.props.listOpener}
               />
             );
           })}
         </div>
-        {categoryNumberDisplay !== -1 ? (
-          <ShowDescription
-            description={item[categoryNumberDisplay].description}
-          />
+        {pageCounter !== -1 ? (
+          <ShowDescription description={item[pageCounter].description} />
         ) : null}
       </div>
     );
@@ -72,3 +55,17 @@ ItemList.defaultProps = {
     },
   ],
 };
+const mapStateToProps = (state) => {
+  return {
+    pageCounter: state.categoryReducer.listState,
+  };
+};
+const mapDispatchToState = (dispatch) => {
+  return {
+    listOpener: (index) => {
+      dispatch(openList(index));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToState)(ItemList);

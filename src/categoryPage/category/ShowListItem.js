@@ -5,19 +5,25 @@ import Identity from "lodash/identity";
 
 import "./Category.css";
 
-export default function ShowListItem(props) {
-  const { listItems, onClick, backgroundColor } = props;
-  return (
-    <div
-      className="display-list-box"
-      onClick={onClick}
-      style={{
-        backgroundColor: backgroundColor,
-      }}
-    >
-      <h4 className="list-text">{listItems}</h4>
-    </div>
-  );
+export default class ShowListItem extends React.Component {
+  handleOnClick = () => {
+    const { onClick, index } = this.props;
+    return onClick(index);
+  };
+  render() {
+    const { listItems, backgroundColor } = this.props;
+    return (
+      <div
+        className="display-list-box"
+        onClick={this.handleOnClick}
+        style={{
+          backgroundColor: backgroundColor,
+        }}
+      >
+        <h4 className="list-text">{listItems}</h4>
+      </div>
+    );
+  }
 }
 ShowListItem.propTypes = {
   backgroundColor: PropTypes.string,
