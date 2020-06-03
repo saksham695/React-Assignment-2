@@ -11,7 +11,6 @@ const loginReducer = (state = initialState, action) => {
   if (action.type === "INPUT_FIELD") {
     const { loginDetails } = { ...state };
     loginDetails[action.inputType] = action.inputValue;
-    console.log(loginDetails);
     const { emailID, password } = loginDetails;
     const newButtonStatus =
       emailID.length > 0 && password.length > 0 ? false : true;

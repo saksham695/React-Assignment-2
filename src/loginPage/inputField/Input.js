@@ -1,26 +1,18 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import "./Input.css";
 
-export default class InputComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: "",
-    };
-  }
-
+class InputComponent extends Component {
   handleInputControl = (inputType) => {
     return (event) => {
       const inputFieldValue = event.target.value;
-      this.setState({ text: inputFieldValue }, () =>
-        this.props.handleChange(this.state.text, inputType)
-      );
+      this.props.handleChange(inputFieldValue, inputType);
     };
   };
 
   render() {
-    const { inputType } = this.props;
+    const { inputType, inputFieldValues } = this.props;
     return (
       <>
         <label className="input-box-wrapper">
@@ -29,10 +21,16 @@ export default class InputComponent extends Component {
             onChange={this.handleInputControl(inputType)}
             placeholder={inputType}
             type={inputType}
-            value={this.state.text}
+            value={inputFieldValues[inputType]}
           />
         </label>
       </>
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    inputFieldValues: state.loginReducer,
+  };
+};
+export default connect(mapStateToProps)(InputComponent);
